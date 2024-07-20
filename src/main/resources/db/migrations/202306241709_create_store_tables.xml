@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202306241709-01" author="Bruno">
+        <createTable tableName="products">
+            <column name="uuid" type="varchar(36)">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="name" type="varchar(50)" />
+            <column name="price" type="double" />
+            <column name="tebex_id" type="int" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202306241709-02" author="Bruno">
+        <createTable tableName="preferences">
+            <column name="uuid" type="varchar(46)">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="username" type="varchar(36)"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="product_id" type="varchar(36)"/>
+            <column name="success" type="boolean" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202306241709-03" author="Bruno">
+        <createTable tableName="orders">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="id_merchant_order" type="bigint" />
+            <column name="status" type="varchar(20)"/>
+            <column name="username" type="varchar(36)"/>
+            <column name="preference_id" type="varchar(46)"/>
+            <column name="date_created" type="timestamp"/>
+            <column name="paid_amount" type="double"/>
+            <column name="order_status" type="varchar(20)"/>
+            <column name="delivered" type="boolean" />
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

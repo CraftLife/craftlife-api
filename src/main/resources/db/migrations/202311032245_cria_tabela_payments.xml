@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202311032245-01" author="Bruno">
+        <createTable tableName="payments">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="username" type="varchar(36)" />
+            <column name="product_id" type="varchar(36)" />
+            <column name="ip_address" type="varchar(39)" />
+            <column name="transaction_amount" type="double" />
+            <column name="received_amount" type="double" />
+            <column name="payment_method" type="varchar(16)" />
+            <column name="order_id" type="bigint" />
+            <column name="status" type="varchar(16)" />
+            <column name="date_approved" type="timestamp" />
+            <column name="date_created" type="timestamp" />
+            <column name="last_modified" type="timestamp" />
+            <column name="delivered" type="boolean" />
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202311032245-02" author="Bruno">
+        <dropTable tableName="orders" />
+        <dropTable tableName="preferences" />
+    </changeSet>
+
+
+</databaseChangeLog>

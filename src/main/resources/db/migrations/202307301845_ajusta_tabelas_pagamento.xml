@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202307301845-01" author="Bruno">
+        <addColumn tableName="preferences">
+            <column afterColumn="uuid"
+                    name="name"
+                    type="varchar(30)" />
+            <column afterColumn="name"
+                    name="surname"
+                    type="varchar(30)" />
+            <column afterColumn="surname"
+                    name="email"
+                    type="varchar(50)" />
+            <column afterColumn="email"
+                    name="cpf"
+                    type="varchar(11)" />
+        </addColumn>
+        <renameColumn columnDataType="varchar(36)"
+                       newColumnName="ign"
+                       oldColumnName="username"
+                       tableName="preferences" />
+    </changeSet>
+
+</databaseChangeLog>

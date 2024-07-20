@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202312300927-01" author="Bruno">
+        <createTable tableName="features">
+            <column name="id" type="UUID" defaultValueComputed="uuid()">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="has" type="BOOLEAN" />
+            <column name="display_order" type="INT"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="features"
+                                 baseColumnNames="product_id"
+                                 constraintName="fk_features_product"
+                                 referencedTableName="products"
+                                 referencedColumnNames="uuid"
+                                 onDelete="CASCADE"/>
+    </changeSet>
+
+</databaseChangeLog>

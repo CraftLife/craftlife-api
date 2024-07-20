@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <include file="migrations/202304261934-cria-coluna-role.xml" relativeToChangelogFile="true"/>
+
+    <include file="migrations/202306241709_create_store_tables.xml" relativeToChangelogFile="true"/>
+
+    <include file="migrations/202307301845_ajusta_tabelas_pagamento.xml" relativeToChangelogFile="true"/>
+
+    <include file="migrations/202311032245_cria_tabela_payments.xml" relativeToChangelogFile="true"/>
+
+    <include file="migrations/202312241602_cria_coluna_desconto.xml" relativeToChangelogFile="true"/>
+
+    <include file="migrations/202312300927_create_categories.xml" relativeToChangelogFile="true"/>
+
+    <include file="migrations/202312301741_create_product_features.xml" relativeToChangelogFile="true"/>
+
+    <include file="migrations/202401172250_cria_colunas_nomes_e_email.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_USERNAME}
+    hikari:
+      max-lifetime: ${DATABASE_HIKARI_MAX_LIFETIME}
+      maximum-pool-size: ${DATABASE_HIKARI_MAXIMUM_POOL_SIZE}
+      idle-timeout: ${DATABASE_HIKARI_IDLE_TIMEOUT}
+  liquibase:
+    change-log: 'classpath:/db/liquibase-changelog.xml'
+  mail:
+    host: ${MAIL_HOST}
+    port: ${MAIL_PORT}
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
+
+application:
+  api-url: ${API_URL}
+  security:
+    jwt:
+      secret-key: ${JWT_SECRET_KEY}
+      expiration: ${JWT_TOKEN_EXPIRATION} # a day
+      refresh-token:
+        expiration: ${JWT_REFRESHTOKEN_EXPIRATION} # 7 days
+  mercadopago:
+    access-token: ${MERCADOPAGO_ACCESS_TOKEN}
+  tebex:
+    secret: ${TEBEX_SECRET}
+  mjml:
+    basic: ${MAIL_MJML_BASIC}
+  scheduling:
+    active: ${SCHEDULING_ACTIVE}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="202401172250-01" author="Bruno">
+        <addColumn tableName="payments">
+            <column afterColumn="username"
+                    name="firstname"
+                    type="varchar(36)"/>
+            <column afterColumn="firstname"
+                    name="lastname"
+                    type="varchar(36)"/>
+            <column afterColumn="lastname"
+                    name="email"
+                    type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>
