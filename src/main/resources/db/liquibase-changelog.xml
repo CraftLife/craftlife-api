@@ -22,4 +22,6 @@
 
     <include file="migrations/202401172250_cria_colunas_nomes_e_email.xml" relativeToChangelogFile="true"/>
 
+    <include file="migrations/202408040109_create_roles_table.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>

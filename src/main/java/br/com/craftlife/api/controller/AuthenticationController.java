@@ -22,7 +22,6 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
         return ResponseEntity.ok("Só é possível se registrar in-game!");
-//        return ResponseEntity.ok(authenticationService.register(request));
     }
 
     @PostMapping("/login")

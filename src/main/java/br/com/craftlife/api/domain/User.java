@@ -12,9 +12,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Data
@@ -49,9 +47,12 @@ public class User implements UserDetails {
     @Column(name = "lastlogin")
     private Long lastLogin;
 
-//    @Enumerated(EnumType.STRING)
-//    @JsonIgnore
-//    private Role role;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 
     public Date getLastLogin() {
         return new Date(lastLogin);
@@ -60,11 +61,12 @@ public class User implements UserDetails {
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("USER"));
+        return this.roles;
     }
 
     public List<String> getRoles() {
-        return this.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+        return this.roles.stream()
+                .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList());
     }
 
