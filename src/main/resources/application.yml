@@ -2,7 +2,7 @@ spring:
   datasource:
     url: ${DATABASE_URL}
     username: ${DATABASE_USERNAME}
-    password: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     hikari:
       max-lifetime: ${DATABASE_HIKARI_MAX_LIFETIME}
       maximum-pool-size: ${DATABASE_HIKARI_MAXIMUM_POOL_SIZE}
