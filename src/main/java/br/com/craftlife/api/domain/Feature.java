@@ -17,7 +17,7 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "features")
-public class Feature {
+public class Feature implements BaseEntity<UUID>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

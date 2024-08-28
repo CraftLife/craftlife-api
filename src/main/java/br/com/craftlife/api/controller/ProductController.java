@@ -29,7 +29,7 @@ public class ProductController {
     private final ProductRepository productRepository;
 
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> getProduct(@PathVariable String productId) {
+    public ResponseEntity<Product> getProduct(@PathVariable Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException("Product not found!"));
 

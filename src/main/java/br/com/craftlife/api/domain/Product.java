@@ -3,6 +3,7 @@ package br.com.craftlife.api.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,8 +24,8 @@ import java.util.UUID;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String uuid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long ID;
 
     @JsonIgnoreProperties("products")
     @ManyToOne
@@ -33,9 +34,12 @@ public class Product {
 
     private String name;
 
+    private String description;
+
     private Double price;
 
-    private Double discount;
+    @JsonProperty("duration_days")
+    private Double durationDays;
 
     @Column(name = "icon")
     private String icon;
@@ -49,6 +53,9 @@ public class Product {
     @Column(name = "label_color")
     private String labelColor;
 
+    @Column(name = "image")
+    private String image;
+
     @Column(name = "active", nullable = false)
     private boolean active;
 
@@ -59,8 +66,8 @@ public class Product {
     @Column(name = "tebex_id")
     private String tebexId;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("product")
-    private List<Feature> features;
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+//    @JsonIgnoreProperties("product")
+//    private List<Feature> features;
 
 }

@@ -6,9 +6,9 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
     <!-- Create roles table -->
-    <changeSet id="202408040109-01" author="Bruno">
+    <changeSet id="202408271234-01" author="Bruno">
         <createTable tableName="roles">
-            <column name="id" type="MEDIUMINT UNSIGNED" autoIncrement="true">
+            <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true"/>
             </column>
             <column name="name" type="VARCHAR(255)">
@@ -18,23 +18,24 @@
     </changeSet>
 
     <!-- Create user_roles table -->
-    <changeSet id="202408040109-02" author="Bruno">
+    <changeSet id="202408271234-02" author="Bruno">
         <createTable tableName="user_roles">
-            <column name="user_id" type="MEDIUMINT UNSIGNED">
+            <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="role_id" type="MEDIUMINT UNSIGNED">
+            <column name="role_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
 
     <!-- Add foreign key constraints -->
-    <changeSet id="202408040109-03" author="Bruno">
+    <changeSet id="202408271234-03" author="Bruno">
         <addForeignKeyConstraint
                 baseTableName="user_roles"
                 baseColumnNames="user_id"
                 constraintName="fk_user_roles_authme"
+                referencedTableSchemaName="authme"
                 referencedTableName="authme"
                 referencedColumnNames="id"
                 onDelete="CASCADE"/>

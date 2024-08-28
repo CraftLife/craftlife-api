@@ -55,7 +55,7 @@ public class MercadopagoService {
                 .description(String.format("%s para %s", product.getName(), checkoutRequest.getIgn()))
                 .quantity(1)
                 .currencyId("BRL")
-                .unitPrice(BigDecimal.valueOf(product.getPrice() - (product.getPrice() * product.getDiscount())))
+                .unitPrice(BigDecimal.valueOf(product.getPrice()))
                 .build());
 
         PreferencePayerRequest payer = PreferencePayerRequest.builder()
@@ -116,7 +116,7 @@ public class MercadopagoService {
                 .map(MerchantOrderPayment::getTransactionAmount)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        Product product = productRepository.findById(payment.getAdditionalInfo().getItems().get(0).getId()).orElse(null);
+        Product product = productRepository.findById(Long.valueOf(payment.getAdditionalInfo().getItems().get(0).getId())).orElse(null);
 
 
         if (paidAmount.compareTo(merchantOrder.getTotalAmount()) >= 0) {

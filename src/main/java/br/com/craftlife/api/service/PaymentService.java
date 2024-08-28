@@ -30,7 +30,7 @@ public class PaymentService {
         com.mercadopago.resources.payment.Payment mercadopagoPayment = mercadopagoService.consultPayment(paymentId);
         MerchantOrder merchantOrder = mercadopagoService.consultMerchantOrder(mercadopagoPayment.getOrder().getId());
 
-        Product product = productRepository.findById(mercadopagoPayment.getAdditionalInfo().getItems().get(0).getId())
+        Product product = productRepository.findById(Long.valueOf(mercadopagoPayment.getAdditionalInfo().getItems().get(0).getId()))
                 .orElseThrow(() -> new ValidationException("Não foi possível encontrar o produto vinculado ao pagamento!"));
 
         return PaymentResponse.builder()

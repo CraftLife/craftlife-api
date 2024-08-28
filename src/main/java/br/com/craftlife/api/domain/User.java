@@ -9,7 +9,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
@@ -21,12 +20,11 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "authme")
-public class User implements UserDetails {
+@Table(name = "authme", schema = "authme")
+public class User implements UserDetails, BaseEntity<Long> {
 
     @Id
     @GeneratedValue
-    @JsonIgnore
     private Long id;
 
     @JsonIgnore
@@ -43,7 +41,7 @@ public class User implements UserDetails {
     @JsonIgnore
     private String ip;
 
-    @JsonIgnore
+    @JsonProperty("last_login")
     @Column(name = "lastlogin")
     private Long lastLogin;
 

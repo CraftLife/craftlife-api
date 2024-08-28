@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.UUID;
 
-public interface CategoryRepository extends JpaRepository<Category, UUID> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 
     @Query("SELECT c FROM Category c LEFT JOIN FETCH c.products p WHERE c.active AND p.active ORDER BY c.displayOrder, p.displayOrder")
     List<Category> findAllCategoriesOrderedByDisplayOrder();

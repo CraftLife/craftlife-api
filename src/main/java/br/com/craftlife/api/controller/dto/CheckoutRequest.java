@@ -25,6 +25,6 @@ public class CheckoutRequest {
     private String ign;
 
     @JsonProperty("product_id")
-    private String productId;
+    private Long productId;
 
 }

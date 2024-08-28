@@ -44,7 +44,7 @@ public class PendingPaymentsSchedule {
         List<Payment> pedingPaymentDeliverys = paymentRepository.findByDeliveredFalse();
 
         pedingPaymentDeliverys.forEach(payment -> {
-            Product product = productRepository.findById(payment.getProduct().getUuid())
+            Product product = productRepository.findById(payment.getProduct().getID())
                     .orElseThrow(() -> new NoSuchElementException("Product not found!"));
             logger.info("Iniciando ativação do produto {} para {}", product.getName(), payment.getUsername());
             tebexService.ativarProduto(product, payment.getUsername(), payment.getReceivedAmount());
