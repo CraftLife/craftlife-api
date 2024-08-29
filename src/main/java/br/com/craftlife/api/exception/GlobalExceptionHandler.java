@@ -2,6 +2,7 @@ package br.com.craftlife.api.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -35,6 +36,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     ProblemDetail handleValidationException(Exception e) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
         problemDetail.setTitle("Bad Request");
+        problemDetail.setType(URI.create("https://api.brunodsr.com.com/errors/bad-request"));
+        return problemDetail;
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    ProblemDetail handleAccessDeniedException(Exception e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, e.getMessage());
+        problemDetail.setTitle("Forbidden");
         problemDetail.setType(URI.create("https://api.brunodsr.com.com/errors/bad-request"));
         return problemDetail;
     }

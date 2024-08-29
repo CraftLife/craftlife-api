@@ -35,4 +35,15 @@ public class ProductController {
 
         return ResponseEntity.ok(product);
     }
+
+    @PostMapping("/update-summary/{productId}")
+    @Secured({"DIRECTOR"})
+    public ResponseEntity<Product> updateProductSummary(@PathVariable Long productId, @RequestBody String summary) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new NoSuchElementException("Product not found!"));
+
+        product.setSummary(summary);
+        product = productRepository.save(product);
+        return ResponseEntity.ok(product);
+    }
 }

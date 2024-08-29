@@ -106,4 +106,15 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="202408271259-06" author="Bruno">
+        <addColumn tableName="products">
+            <column name="summary"
+                    type="text" />
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="202408271259-07" author="Bruno">
+        <modifyDataType tableName="products" columnName="tebex_id" newDataType="varchar(10)" />
+    </changeSet>
+
 </databaseChangeLog>

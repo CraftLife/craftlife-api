@@ -36,6 +36,8 @@ public class Product {
 
     private String description;
 
+    private String summary;
+
     private Double price;
 
     @JsonProperty("duration_days")
