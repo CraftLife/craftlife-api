@@ -2,8 +2,10 @@ package br.com.craftlife.api.service;
 
 import br.com.craftlife.api.controller.dto.CheckoutRequest;
 import br.com.craftlife.api.domain.Product;
+import br.com.craftlife.api.domain.User;
 import br.com.craftlife.api.repository.PaymentRepository;
 import br.com.craftlife.api.repository.ProductRepository;
+import br.com.craftlife.api.repository.UserRepository;
 import br.com.craftlife.api.scheduled.PendingPaymentsSchedule;
 import com.mercadopago.MercadoPagoConfig;
 import com.mercadopago.client.common.IdentificationRequest;
@@ -36,6 +38,7 @@ public class MercadopagoService {
 
     private final PaymentRepository paymentRepository;
     private final ProductRepository productRepository;
+    private final UserRepository userRepository;
 
     @Value("${application.mercadopago.access-token}")
     private String mercadopagoAccessToken;
@@ -118,11 +121,13 @@ public class MercadopagoService {
 
         Product product = productRepository.findById(Long.valueOf(payment.getAdditionalInfo().getItems().get(0).getId())).orElse(null);
 
+        User  user = userRepository.findByUsernameIgnoreCase(merchantOrder.getAdditionalInfo())
+                .orElseThrow(() -> new ValidationException("user not found"));
 
         if (paidAmount.compareTo(merchantOrder.getTotalAmount()) >= 0) {
             paymentRepository.save(br.com.craftlife.api.domain.Payment.builder()
-                    .id(payment.getId())
-                    .username(merchantOrder.getAdditionalInfo())
+                    .paymentId(payment.getId())
+                    .user(user)
                     .firstname(payment.getAdditionalInfo().getPayer().getFirstName())
                     .lastname(payment.getAdditionalInfo().getPayer().getLastName())
                     .email(payment.getPayer().getEmail())
@@ -132,11 +137,10 @@ public class MercadopagoService {
                     .receivedAmount(payment.getTransactionDetails().getNetReceivedAmount().doubleValue())
                     .paymentMethod(payment.getPaymentMethodId())
                     .orderId(payment.getOrder().getId())
-                    .status(payment.getStatus())
+                    .status(br.com.craftlife.api.domain.Payment.Status.valueOf(payment.getStatus().toUpperCase()))
                     .dateApproved(payment.getDateApproved().toLocalDateTime())
                     .dateCreated(payment.getDateCreated().toLocalDateTime())
                     .lastModified(payment.getDateLastUpdated().toLocalDateTime())
-                    .delivered(false)
                     .build());
 
         }

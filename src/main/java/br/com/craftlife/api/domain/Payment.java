@@ -1,10 +1,12 @@
 package br.com.craftlife.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import java.time.LocalDateTime;
 
@@ -17,19 +19,26 @@ import java.time.LocalDateTime;
 public class Payment {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
+    @Column(name="payment_id")
+    private Long paymentId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    @JsonIgnoreProperties("category")
+    private Product product;
 
     private String firstname;
 
     private String lastname;
 
     private String email;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
 
     @Column(name = "ip_address")
     private String ipAddress;
@@ -46,7 +55,9 @@ public class Payment {
     @Column(name = "order_id")
     private Long orderId;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "payment_status")
+    private Status status;
 
     @Column(name = "date_approved")
     private LocalDateTime dateApproved;
@@ -57,6 +68,7 @@ public class Payment {
     @Column(name = "last_modified")
     private LocalDateTime lastModified;
 
-    private Boolean delivered;
-
+    public enum Status {
+        PENDING, APPROVED, COMPLETED
+    }
 }

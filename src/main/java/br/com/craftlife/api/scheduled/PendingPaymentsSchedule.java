@@ -41,14 +41,13 @@ public class PendingPaymentsSchedule {
             logger.info("Scheduler desativado, cancelando ativação de vips..");
             return;
         }
-        List<Payment> pedingPaymentDeliverys = paymentRepository.findByDeliveredFalse();
+        List<Payment> pedingPaymentDeliverys = paymentRepository.findByStatus(Payment.Status.APPROVED);
 
         pedingPaymentDeliverys.forEach(payment -> {
-            Product product = productRepository.findById(payment.getProduct().getID())
-                    .orElseThrow(() -> new NoSuchElementException("Product not found!"));
-            logger.info("Iniciando ativação do produto {} para {}", product.getName(), payment.getUsername());
-            tebexService.ativarProduto(product, payment.getUsername(), payment.getReceivedAmount());
-            payment.setDelivered(true);
+
+            logger.info("Iniciando ativação do produto {} para {}", payment.getProduct().getName(), payment.getUser().getRealname());
+            tebexService.ativarProduto(payment.getProduct(), payment.getUser().getRealname(), payment.getReceivedAmount());
+            payment.setStatus(Payment.Status.COMPLETED);
             paymentRepository.save(payment);
 
             if (Objects.nonNull(payment.getEmail())) {
@@ -56,8 +55,8 @@ public class PendingPaymentsSchedule {
                     emailService.sendPurchaseEmail(
                             payment.getEmail(),
                             String.format("%s %s", payment.getFirstname(), payment.getLastname()),
-                            payment.getUsername(),
-                            product.getName(),
+                            payment.getUser().getRealname(),
+                            payment.getProduct().getName(),
                             payment.getDateApproved(),
                             payment.getTransactionAmount());
                 } catch (IOException e) {

@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
-    List<Payment> findByDeliveredFalse();
+    List<Payment> findByStatus(Payment.Status status);
 
     List<Payment> findAllByDateApprovedBetweenOrderByDateApprovedDesc(LocalDateTime from, LocalDateTime to);
 }

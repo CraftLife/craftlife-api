@@ -67,6 +67,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="product_id" type="BIGINT" />
+            <column name="firstname" type="varchar(36)"/>
+            <column name="lastname" type="varchar(36)"/>
+            <column name="email"  type="varchar(50)"/>
             <column name="ip_address" type="varchar(39)" />
             <column name="transaction_amount" type="double" />
             <column name="received_amount" type="double" />
@@ -75,7 +78,7 @@
             <column name="date_approved" type="timestamp" />
             <column name="date_created" type="timestamp" />
             <column name="last_modified" type="timestamp" />
-            <column name="status" type="transaction_status" />
+            <column name="status" type="payment_status" />
         </createTable>
         <addForeignKeyConstraint
                 baseTableName="payments"

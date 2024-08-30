@@ -19,7 +19,7 @@
 
 <!--    <include file="migrations/202312301741_create_product_features.xml" relativeToChangelogFile="true"/>-->
 
-<!--    <include file="migrations/202401172250_cria_colunas_nomes_e_email.xml" relativeToChangelogFile="true"/>-->
+<!--    <include file="migrations/202408292305_cria_colunas_pagamento_nome_email.xml" relativeToChangelogFile="true"/>-->
 
     <include file="migrations/202408271234_create_roles_table.xml" relativeToChangelogFile="true"/>
 

@@ -65,7 +65,7 @@ public class ServerService {
                 payments.subList(0, Math.min(payments.size(), 3)).stream()
                     .map(payment ->
                         GoalResponse.RsDonation.builder()
-                            .username(payment.getUsername())
+                            .username(payment.getUser().getUsername())
                             .productName(payment.getProduct().getName())
                             .transactionAmount(payment.getTransactionAmount())
                         .build()

@@ -44,7 +44,6 @@ public class PaymentService {
                 .amountFee(mercadopagoPayment.getFeeDetails().stream().mapToDouble(fee -> fee.getAmount().doubleValue()).sum())
                 .status(mercadopagoPayment.getStatus())
                 .processingStarted(Objects.nonNull(payment))
-                .delivered(Objects.nonNull(payment) ? payment.getDelivered() : false)
                 .build();
     }
 }
