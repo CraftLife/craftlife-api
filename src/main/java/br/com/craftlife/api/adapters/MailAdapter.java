@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
-import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.StringTemplateResolver;
 
@@ -25,7 +24,6 @@ public class MailAdapter {
 
     private final JavaMailSender javaMailSender;
     private final MjmlServerAdapter mjmlServerAdapter;
-    private final TemplateEngine templateEngine;
 
     public void sendHtmlEmail(String[] to, String subject, Context context, String templateContent) {
 
@@ -49,6 +47,7 @@ public class MailAdapter {
     }
 
     private String buildTemplate(Context context, String templateContent) {
+        TemplateEngine templateEngine = new SpringTemplateEngine();
         StringTemplateResolver stringTemplateResolver = new StringTemplateResolver();
         stringTemplateResolver.setTemplateMode(TemplateMode.XML);
         templateEngine.setTemplateResolver(stringTemplateResolver);

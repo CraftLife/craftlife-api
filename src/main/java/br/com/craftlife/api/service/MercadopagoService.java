@@ -50,6 +50,7 @@ public class MercadopagoService {
 
     public Preference createPreference(Product product, CheckoutRequest checkoutRequest) throws MPException, MPApiException, NoSuchElementException {
         MercadoPagoConfig.setAccessToken(mercadopagoAccessToken);
+        MercadoPagoConfig.setIntegratorId("dev_24c65fb163bf11ea96500242ac130004");
 
         List<PreferenceItemRequest> items = new ArrayList<>();
         items.add(PreferenceItemRequest.builder()

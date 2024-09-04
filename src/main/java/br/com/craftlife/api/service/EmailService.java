@@ -2,17 +2,13 @@ package br.com.craftlife.api.service;
 
 import br.com.craftlife.api.adapters.MailAdapter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.InputStreamSource;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import org.thymeleaf.context.Context;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
@@ -28,6 +24,7 @@ public class EmailService {
 
     @Value("classpath:templates/product-puchased.mjml")
     Resource productPuchasedTemplate;
+
     public void sendPurchaseEmail(String recipient, String fullname, String username, String productName, LocalDateTime approvedDate, Double price) throws IOException {
         Context context = new Context();
         context.setVariable("fullname", fullname);
