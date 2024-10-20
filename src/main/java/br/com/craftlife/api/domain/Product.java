@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.Set;
@@ -27,9 +24,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ID;
 
-    @JsonIgnoreProperties("products")
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
+    @ToString.Exclude
     private Category category;
 
     private String name;
@@ -68,8 +65,11 @@ public class Product {
     @Column(name = "tebex_id")
     private String tebexId;
 
-//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-//    @JsonIgnoreProperties("product")
-//    private List<Feature> features;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "product_coupons",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "coupon_id"))
+    private List<Coupon> coupons;
 
 }

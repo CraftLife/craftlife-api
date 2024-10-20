@@ -1,6 +1,7 @@
 package br.com.craftlife.api.controller;
 
 import br.com.craftlife.api.domain.Category;
+//import br.com.craftlife.api.mapper.CategoryMapper;
 import br.com.craftlife.api.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,11 @@ public class CategoryController {
 
     private final CategoryRepository categoryRepository;
 
+//    private final CategoryMapper categoryMapper;
+
     @GetMapping()
     public ResponseEntity<List<Category>> getCategories() {
-        List<Category> category = categoryRepository.findAllCategoriesOrderedByDisplayOrder();
+        List<Category> category = categoryRepository.findAll();
 
         if (category.isEmpty())
             return ResponseEntity.noContent().build();

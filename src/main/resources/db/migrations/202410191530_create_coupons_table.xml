@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="202410191530-01" author="Bruno">
+        <sql>CREATE TYPE coupon_type AS ENUM ('PERCENTAGE', 'FIXED_VALUE')</sql>
+        <createTable tableName="coupons">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="coupon_type">
+                <constraints nullable="false"/>
+            </column>
+            <column name="discount" type="DOUBLE PRECISION"/>
+            <column name="required_min_value" type="DOUBLE PRECISION"/>
+            <column name="auto_apply" type="BOOLEAN"/>
+            <column name="start_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202410191530-02" author="Bruno">
+        <createTable tableName="product_coupons">
+            <column name="product_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="coupon_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202410191530-03" author="Bruno">
+        <addForeignKeyConstraint
+                baseTableName="product_coupons"
+                baseColumnNames="product_id"
+                constraintName="fk_product_coupons_product"
+                referencedTableName="products"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+
+        <addForeignKeyConstraint
+                baseTableName="product_coupons"
+                baseColumnNames="coupon_id"
+                constraintName="fk_product_coupons_coupons"
+                referencedTableName="coupons"
+                referencedColumnNames="id"
+                onDelete="CASCADE"/>
+    </changeSet>
+
+    <changeSet id="202410191530-04" author="Bruno">
+        <addForeignKeyConstraint
+                baseTableName="categories"
+                baseColumnNames="parent_category_id"
+                constraintName="fk_category_parent_category_id"
+                referencedTableName="categories"
+                referencedColumnNames="id"
+                onDelete="SET NULL"/>
+    </changeSet>
+
+</databaseChangeLog>

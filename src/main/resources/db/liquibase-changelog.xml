@@ -25,4 +25,6 @@
 
     <include file="migrations/202408271259_create_store_tables.xml" relativeToChangelogFile="true"/>
 
+    <include file="migrations/202410191530_create_coupons_table.xml" relativeToChangelogFile="true"/>
+
 </databaseChangeLog>

@@ -1,17 +1,13 @@
 package br.com.craftlife.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Data
 @Builder
@@ -48,8 +44,13 @@ public class Category {
     @Column(name = "image_category")
     private String imageCategory;
 
-    @Column(name = "parent_category_id")
-    private Long parentCategoryId;
+//    @ManyToOne
+//    @JoinColumn(name = "parent_category_id")
+//    private Category parentCategory;
+//
+//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+//    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL)
+//    private Set<Category> childrenCategories = new HashSet<>();
 
     @Column(name = "active", nullable = false)
     private boolean active;
@@ -58,6 +59,6 @@ public class Category {
     private Integer displayOrder;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    @JsonIgnoreProperties("category")
+    @ToString.Exclude
     private List<Product> products;
 }
