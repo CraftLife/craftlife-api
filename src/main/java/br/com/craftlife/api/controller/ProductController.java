@@ -1,24 +1,15 @@
 package br.com.craftlife.api.controller;
 
-import br.com.craftlife.api.controller.dto.PageableResponse;
-import br.com.craftlife.api.domain.Category;
+import br.com.craftlife.api.controller.dto.ProductResponse;
 import br.com.craftlife.api.domain.Product;
-import br.com.craftlife.api.domain.PunishBan;
-import br.com.craftlife.api.repository.BanRepository;
-import br.com.craftlife.api.repository.CategoryRepository;
+import br.com.craftlife.api.mapper.ProductMapper;
 import br.com.craftlife.api.repository.ProductRepository;
-import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Objects;
-import java.util.UUID;
 
 
 @RequestMapping("product")
@@ -28,22 +19,25 @@ public class ProductController {
 
     private final ProductRepository productRepository;
 
+    private final ProductMapper productMapper;
+
     @GetMapping("/{productId}")
-    public ResponseEntity<Product> getProduct(@PathVariable Long productId) {
+    public ResponseEntity<ProductResponse> getProduct(@PathVariable Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException("Product not found!"));
 
-        return ResponseEntity.ok(product);
+        return ResponseEntity.ok(productMapper.productToProductResponse(product));
     }
 
     @PostMapping("/update-summary/{productId}")
     @Secured({"DIRECTOR"})
-    public ResponseEntity<Product> updateProductSummary(@PathVariable Long productId, @RequestBody String summary) {
+    public ResponseEntity<ProductResponse> updateProductSummary(@PathVariable Long productId, @RequestBody String summary) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException("Product not found!"));
 
         product.setSummary(summary);
         product = productRepository.save(product);
-        return ResponseEntity.ok(product);
+        return ResponseEntity.ok(productMapper.productToProductResponse(product));
     }
+
 }
