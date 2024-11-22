@@ -44,13 +44,14 @@ public class Category {
     @Column(name = "image_category")
     private String imageCategory;
 
-//    @ManyToOne
-//    @JoinColumn(name = "parent_category_id")
-//    private Category parentCategory;
-//
-//    @JsonInclude(JsonInclude.Include.NON_EMPTY)
-//    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL)
-//    private Set<Category> childrenCategories = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "parent_category_id")
+    @ToString.Exclude
+    private Category parentCategory;
+
+    @OneToMany(mappedBy = "parentCategory", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<Category> childrenCategories;
 
     @Column(name = "active", nullable = false)
     private boolean active;

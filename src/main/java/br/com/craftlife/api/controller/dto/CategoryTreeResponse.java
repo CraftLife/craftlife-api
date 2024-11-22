@@ -8,7 +8,7 @@ import java.util.List;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CategoryResponse {
+public class CategoryTreeResponse {
 
     private Long id;
 
@@ -23,6 +23,6 @@ public class CategoryResponse {
     private String iconColor;
 
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<ProductResponse> products = new ArrayList<>();
+    private List<CategoryTreeResponse> childrenCategories = new ArrayList<>();
 
 }
